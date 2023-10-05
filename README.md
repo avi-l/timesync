@@ -43,20 +43,20 @@ You can see a live demo [here](avi-timesync.vercel.app).
 
    ```
 
-Usage
-Start the development server:
-Using npm:
+1. Usage
+   Start the development server:
+   Using npm:
 
-```bash
-npm start
+   ```bash
+   npm start
 
-```
+   ```
 
-Using yarn:
+   Using yarn:
 
-```bash
-yarn start
+   ```bash
+   yarn start
 
-```
+   ```
 
 Navigate to the URL provided
