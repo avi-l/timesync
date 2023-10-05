@@ -47,15 +47,18 @@ Usage
 Start the development server:
 Using npm:
 
-````bash
+```bash
 npm start
 
+```
 
 Using yarn:
 
 ```bash
 yarn start
 
+```
 
+```
 
-````
+```
