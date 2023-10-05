@@ -57,8 +57,5 @@ Using yarn:
 ```bash
 yarn start
 
-```
-
-```
-
+Navigate to the URL provided
 ```
