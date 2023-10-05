@@ -6,7 +6,8 @@ A simple React application to synchronize time between multiple users in real-ti
 
 ## Demo
 
-You can see a live demo [here](avi-timesync.vercel.app).
+You can see a live demo here [avi-timesync.vercel.app](https://avi-timesync.vercel.app/)
+.
 
 ## Features
 
