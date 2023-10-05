@@ -24,27 +24,37 @@ You can see a live demo [here](avi-timesync.vercel.app).
 
 1. Navigate to the project directory:
 
-````bash
+   ```bash
    cd timesync
-## Install the dependencies using npm or yarn:
 
-```bash
+   ```
+
+1. Install the dependencies using npm or yarn:
+
+   ```bash
    npm install
-## or
 
-```bash
+   ```
+
+   Or
+
+   ```bash
    yarn install
 
-## Usage
-Start the development server:
-Using npm:
+   ```
 
-```bash
+1. Usage
+   Start the development server:
+   Using npm:
+
+   ````bash
    npm start
-Using yarn:
 
-```bash
+    ```
+   Using yarn:
+
+   ```bash
    yarn start
 
 
-````
+   ````
