@@ -48,7 +48,7 @@ You can see a live demo [here](avi-timesync.vercel.app).
    Using npm:
 
    ```bash
-   npm start
+   npm run dev
 
    ```
 
