@@ -6,7 +6,7 @@ export interface ITimer {
   currentTime: number;
   isRunning: boolean;
   isPaused: boolean;
-  timerInterval?: NodeJS.Timeout;
+  animationFrameId?: number;
 }
 
 interface TimersState {
@@ -50,14 +50,17 @@ const timersSlice = createSlice({
         timer.isRunning = true;
       });
     },
-    setTimerInterval: (
+    setAnimationFrameId: (
       state,
-      action: PayloadAction<{ timerId: number; intervalId: NodeJS.Timeout }>
+      action: PayloadAction<{
+        timerId: number;
+        frameId: number;
+      }>
     ) => {
-      const { timerId, intervalId } = action.payload;
+      const { timerId, frameId } = action.payload;
       const timer = state.timers.find((t) => t.id === timerId);
       if (timer) {
-        timer.timerInterval = intervalId;
+        timer.animationFrameId = frameId;
       }
     },
 
@@ -66,7 +69,7 @@ const timersSlice = createSlice({
         const timerToPause = state.timers.find((timer) => timer.id === timerId);
         if (timerToPause) {
           timerToPause.isPaused = true;
-          clearInterval(timerToPause.timerInterval);
+          cancelAnimationFrame(timerToPause.animationFrameId as number);
         }
       });
     },
@@ -83,7 +86,11 @@ const timersSlice = createSlice({
         timer.isRunning = false;
         timer.isPaused = false;
         timer.currentTime = 0;
-        clearInterval(timer.timerInterval);
+        const frameId = timer.animationFrameId;
+        if (frameId) {
+          cancelAnimationFrame(frameId);
+          timer.animationFrameId = 0;
+        }
       });
       state.activeTimerIds = [];
       saveTimersToLocalStorage(state.timers);
@@ -93,7 +100,7 @@ const timersSlice = createSlice({
         timer.isRunning = false;
         timer.isPaused = false;
         timer.currentTime = 0;
-        clearInterval(timer.timerInterval);
+        cancelAnimationFrame(timer.animationFrameId as number);
       });
     },
     updateTimerCurrentTime: (
@@ -139,7 +146,7 @@ export const {
   deleteAllTimers,
   updateTimerCurrentTime,
   setActiveTimer,
-  setTimerInterval,
+  setAnimationFrameId,
 } = timersSlice.actions;
 
 export default timersSlice.reducer;

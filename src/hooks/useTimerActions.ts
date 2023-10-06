@@ -22,11 +22,20 @@ const useTimerActions = () => {
   const onDeleteAll = () => dispatch(deleteAllTimers());
   const onReset = () => onStop();
 
+  // const onResume = () => {
+  //   dispatch(resumeTimers());
+  //   timers.forEach((timer) => {
+  //     resumeTimerInterval(timer, dispatch);
+  //   });
+  // };
   const onResume = () => {
-    dispatch(resumeTimers());
-    timers.forEach((timer) => {
-      (dispatch as AppDispatch)(resumeTimerInterval(timer));
-    });
+    // dispatch(resumeTimers());
+
+    for (const timer of timers) {
+      if (timer.isPaused) {
+        resumeTimerInterval(timer, dispatch);
+      }
+    }
   };
 
   const onRestart = () => {
