@@ -50,11 +50,27 @@ const timersSlice = createSlice({
         timer.isRunning = true;
       });
     },
+    stopTimers: (state) => {
+      state.activeTimerIds = [];
+      state.timers.forEach((timer) => {
+        timer.isRunning = false;
+        timer.isPaused = false;
+        timer.currentTime = 0;
+        const frameId = timer?.animationFrameId;
+        console.log("frameId", frameId);
+        if (frameId) {
+          cancelAnimationFrame(frameId);
+        }
+        timer.animationFrameId = undefined;
+      });
+
+      saveTimersToLocalStorage(state.timers);
+    },
     setAnimationFrameId: (
       state,
       action: PayloadAction<{
         timerId: number;
-        frameId: number;
+        frameId: number | undefined;
       }>
     ) => {
       const { timerId, frameId } = action.payload;
@@ -73,6 +89,7 @@ const timersSlice = createSlice({
         }
       });
     },
+
     resumeTimers: (state) => {
       state.activeTimerIds.forEach(async (timerId) => {
         const timerToResume = state.timers.find(
@@ -81,20 +98,7 @@ const timersSlice = createSlice({
         if (timerToResume) timerToResume.isPaused = false;
       });
     },
-    stopTimers: (state) => {
-      state.timers.forEach((timer) => {
-        timer.isRunning = false;
-        timer.isPaused = false;
-        timer.currentTime = 0;
-        const frameId = timer.animationFrameId;
-        if (frameId) {
-          cancelAnimationFrame(frameId);
-          timer.animationFrameId = 0;
-        }
-      });
-      state.activeTimerIds = [];
-      saveTimersToLocalStorage(state.timers);
-    },
+
     restartTimers: (state) => {
       state.timers.forEach((timer) => {
         timer.isRunning = false;
