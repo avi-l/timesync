@@ -1,5 +1,5 @@
-import { resumeTimerInterval, activateTimers } from "@/lib/utils";
-import { AppDispatch, RootState } from "@/store";
+import { activateTimers } from "@/lib/utils";
+import { AppDispatch } from "@/store";
 import {
   pauseTimers,
   stopTimers,
@@ -8,12 +8,10 @@ import {
   startTimers,
 } from "@/store/timersSlice";
 import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const useTimerActions = () => {
   const dispatch = useDispatch();
-  const timers = useSelector((state: RootState) => state.timers.timers);
-
   const onStop = useCallback(() => {
     dispatch(stopTimers());
   }, [dispatch]);
@@ -22,12 +20,7 @@ const useTimerActions = () => {
   const onDeleteAll = () => dispatch(deleteAllTimers());
   const onReset = () => onStop();
 
-  const onResume = () => {
-    dispatch(resumeTimers());
-    timers.forEach((timer) => {
-      resumeTimerInterval(timer, dispatch);
-    });
-  };
+  const onResume = () => dispatch(resumeTimers());
 
   const onRestart = () => {
     onStop();

@@ -57,7 +57,7 @@ const timersSlice = createSlice({
         timer.isPaused = false;
         timer.currentTime = 0;
         const frameId = timer?.animationFrameId;
-        console.log("frameId", frameId);
+
         if (frameId) {
           cancelAnimationFrame(frameId);
         }
@@ -81,11 +81,13 @@ const timersSlice = createSlice({
     },
 
     pauseTimers: (state) => {
-      state.activeTimerIds.forEach((timerId) => {
-        const timerToPause = state.timers.find((timer) => timer.id === timerId);
-        if (timerToPause) {
-          timerToPause.isPaused = true;
-          cancelAnimationFrame(timerToPause.animationFrameId as number);
+      state.activeTimerIds.forEach(async (timerId) => {
+        const timerToResume = state.timers.find(
+          (timer) => timer.id === timerId
+        );
+        if (timerToResume) {
+          timerToResume.isPaused = true;
+          cancelAnimationFrame(timerToResume.animationFrameId as number);
         }
       });
     },
@@ -95,7 +97,9 @@ const timersSlice = createSlice({
         const timerToResume = state.timers.find(
           (timer) => timer.id === timerId
         );
-        if (timerToResume) timerToResume.isPaused = false;
+        if (timerToResume) {
+          timerToResume.isPaused = false;
+        }
       });
     },
 

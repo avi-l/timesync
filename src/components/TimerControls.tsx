@@ -47,7 +47,7 @@ const TimerControls: React.FC = () => {
           <Button onClick={isRunning && !allTimersStopped ? onStop : onStart}>
             {isRunning && !allTimersStopped ? "Stop" : "Start"}
           </Button>
-          <Button disabled={!isRunning} onClick={isPaused ? onResume : onPause}>
+          <Button disabled={true} onClick={isPaused ? onResume : onPause}>
             {isPaused ? "Resume" : "Pause"}
           </Button>
           <Button
